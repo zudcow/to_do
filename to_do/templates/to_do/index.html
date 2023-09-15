@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>2DO</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+</head>
+<body>
+
+<a href="{% url 'to_do:completed_tasks' %}">See Your Completed Tasks</a>
+
+{% if all_root_tasks %}
+    <ul>
+    {% for task in all_root_tasks %}
+        <li>
+            <div class="task-container">
+                <span class="task-description">{{ task.task_description }}</span>
+
+                <!-- Form for marking task as complete -->
+                <form method="post" action="{% url 'to_do:complete_task' task.id %}">
+                    {% csrf_token %}
+                    <button type="submit" name="complete">Mark as Complete</button>
+                </form>
+
+                <!-- Form for deleting task -->
+                <form method="post" action="{% url 'to_do:delete_task' task.id %}">
+                    {% csrf_token %}
+                    <button type="submit" name="delete">Delete</button>
+                </form>
+
+                <!-- Add a form for adding subtasks for each task -->
+                <form method="post" action="{% url 'to_do:add_subtask' task.id %}">
+                    {% csrf_token %}
+                    <label for="subtask_{{ task.id }}">Subtask:</label>
+                    <input type="text" id="subtask_{{ task.id }}" name="subtask_{{ task.id }}" required>
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+
+            {% if task.subtask.all %}
+                <ul>
+                    {% for subtask in task.subtask.all %}
+                        <li>
+                            <div class="task-container">
+                                <span class="task-description">{{ subtask.task_description }}</span>
+
+                                <!-- Form for marking subtask as complete -->
+                                <form method="post" action="{% url 'to_do:complete_task' subtask.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" name="complete">Mark as Complete</button>
+                                </form>
+
+                                <!-- Form for deleting subtask -->
+                                <form method="post" action="{% url 'to_do:delete_task' subtask.id %}">
+                                    {% csrf_token %}
+                                    <button type="submit" name="delete">Delete</button>
+                                </form>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No task is available.</p>
+{% endif %}
+
+<form method="post" action="{% url 'to_do:add_task' %}">
+    {% csrf_token %}
+    <label for="new_task">New Task:</label>
+    <input type="text" id="new_task" name="new_task" required>
+    <button type="submit">Add Task</button>
+</form>
+
+<a href="{% url 'to_do:logout' %}">Logout</a>
+
+<script src="{% static 'complete_button.js' %}"></script>
+
+</body>
+
+
+</html>

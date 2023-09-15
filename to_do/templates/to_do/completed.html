@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Completed Tasks</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+
+</head>
+<body>
+    <h1>Completed Tasks</h1>
+
+    <a href="{% url 'to_do:index' %}">See Your Pending Tasks</a>
+
+    {% if completed_tasks %}
+        <ul>
+            {% for task in completed_tasks %}
+                <li>
+                    {{ task.task_description }}
+
+                    <!-- Form for marking task as incomplete -->
+                    <form method="post" action="{% url 'to_do:complete_task' task.id %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="completed" value="false">
+                        <button type="submit" name="complete">Mark as Incomplete</button>
+                    </form>
+
+                    <!-- Form for deleting task -->
+                    <form method="post" action="{% url 'to_do:delete_task' task.id %}">
+                        {% csrf_token %}
+                        <button type="submit" name="delete">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No completed tasks are available.</p>
+    {% endif %}
+
+<a href="{% url 'to_do:logout' %}">Logout</a>
+
+<script src="{% static 'complete_button.js' %}"></script>
+
+</body>
+</html>

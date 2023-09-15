@@ -1,0 +1,109 @@
+/* Increase the font size for task descriptions */
+
+.task-container {
+    display: flex;
+    align-items: center; /* Vertically center the items */
+    justify-content: space-between; /* Distribute items evenly horizontally */
+}
+
+/* Style the task description separately */
+.task-description {
+    flex-grow: 1; /* Allow the description to grow to take available space */
+    font-size: 24px;
+}
+
+/* Style buttons */
+.task-container form button {
+    margin-left: 10px; /* Add spacing between buttons */
+    padding: 5px 10px;
+    background-color: lightblue;
+    color: silver;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Style the "Mark as Complete" button to be green */
+.task-container form button[name="complete"] {
+    background-color: #66bb6a;
+    color: white;
+}
+
+/* Style the "Delete" button to be red */
+.task-container form button[name="delete"] {
+    background-color: #e53935;
+    color: white;
+}
+
+
+li {
+    font-size: 24px;
+    border: 1px solid silver; /* Subtle outline for task containers */
+    padding: 10px;
+    margin-bottom: 10px; /* Spacing between tasks */
+}
+
+/* Make the task form smaller */
+form {
+    width: 60%;
+}
+
+/* Style buttons and links as well */
+form button, a.button {
+    display: inline-block;
+    margin-right: 10px;
+    padding: 5px 10px;
+    background-color: lightblue;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+/* Style the "Mark as Complete" button to be green */
+form button[name="complete"] {
+    background-color: #66bb6a; /* Green for "mark as complete" */
+    color: white;
+}
+
+/* Style the "Delete" button to be red */
+form button[name="delete"] {
+    background-color: #e53935; /* Red for "delete" */
+    color: white;
+}
+
+/* Add some spacing to visually relate the buttons to the task description */
+form, a.button {
+    margin-bottom: 10px;
+}
+
+a {
+    display: inline-block;
+    background-color: #007bff;
+    color: #fff;
+    padding: 5px 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+a:hover {
+    background-color: #0056b3;
+}
+
+/* Style the logout link */
+a.logout {
+    display: block;
+    background-color: #dc3545;
+    color: #fff;
+    padding: 5px 10px;
+    margin-top: 10px;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+a.logout:hover {
+    background-color: #c82333;
+}
