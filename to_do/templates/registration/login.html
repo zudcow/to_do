@@ -9,16 +9,45 @@
 </head>
 <body>
     <h2>Login</h2>
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" name="login_submit">Login</button>
-    </form>
+    <div class="form-container">
+        <form id="login-form" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" name="login_submit">Login</button>
+            <button type="button" id="show-registration">Register</button>
+        </form>
+    </div>
+    
 
-    <form method="post">
-    {% csrf_token %}
-    {{ registration_form.as_p }}
-    <button type="submit" name="registration_submit">Create Account</button>
-</form>
+    {% if error_message %}
+    <div class="alert alert-danger">
+        {{ error_message }}
+    </div>
+    {% endif %}
+
+    <!-- Add a button to show the registration form -->
+    
+    <div class="form-container">
+    <div id="registration-form" style="display: none;">
+        <form method="post">
+            {% csrf_token %}
+            {{ registration_form.as_p }}
+            <button type="submit" name="registration_submit">Create Account</button>
+        </form>
+    </div>
+    </div>
+
+    <script>
+        document.getElementById('show-registration').addEventListener('click', function() {
+            var form = document.getElementById('registration-form');
+            if (form.style.display === 'none') {
+                form.style.display = 'block';
+                form.scrollIntoView({behavior: "smooth"});
+            } else {
+                form.style.display = 'none';
+            }
+        });
+    </script>
+
 </body>
 </html>
